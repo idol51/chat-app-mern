@@ -6,7 +6,7 @@ import io from 'socket.io-client'
 import { useState } from 'react';
 import ChatRoom from './pages/chatRoom';
 
-const socket = io.connect('http://localhost:3001')
+const socket = io.connect('http://192.168.21.68:3001')
 
 function App() {
   const [ userName, setUserName ] = useState(null);

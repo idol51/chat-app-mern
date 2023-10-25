@@ -6,7 +6,6 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-const host = 'localhost';
 const clientPort = 3000;
 
 mongoose
@@ -19,13 +18,13 @@ mongoose.Promise = global.Promise;
 app.use(cors());
 
 
-const server = app.listen(port, host, () => {
+const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
 
 const io = new Server(server, {
     cors: {
-        origin: `http://${host}:${clientPort}`,
+        origin: `http://192.168.1.177:${clientPort}`,
         methods: ['GET', 'POST'],
     }
 })

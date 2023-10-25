@@ -26,6 +26,8 @@ export default function ChatRoom({ socket }) {
               roomName: sessionStorage.getItem('roomName'),
               createdTime,
           })
+
+          setMessage('');
         }
       }
       else {
@@ -43,6 +45,7 @@ export default function ChatRoom({ socket }) {
             setRefresh((ref) => !ref);
         })
 
+        return () => socket.off('chatroom-users');
     }, [socket])
 
     useEffect(() => {
@@ -56,10 +59,10 @@ export default function ChatRoom({ socket }) {
       <Sidebar onlineUsers={onlineUsers} openDrawer={openDrawer} onClose={() => setOpenDrawer(false)} />
 
       <Row className='w-100 justify-content-center chat-section' style={{paddingLeft: '360px'}}>
-        <Col className='py-3 mx-2' style={{ width: '100%', maxWidth: '600px' }}>
+        <Col className='py-3' style={{ width: '100%', maxWidth: '600px' }}>
             <Messages socket={socket} />
-            <Row className='flex-nowrap bg-body-secondary p-3 rounded'>
-                <Input className='mx-2' placeholder='Type your message here...' value={message} onChange={(e) => setMessage(e.target.value)} />
+            <Row className='flex-nowrap bg-body-secondary p-3 mx-2 rounded'>
+                <Input className='mx-2' placeholder='Type your message here...' value={message} onPressEnter={handleSendMessage} onChange={(e) => setMessage(e.target.value)} />
                 <Button className='me-2' onClick={handleSendMessage}>Send</Button>
             </Row>
         </Col>
