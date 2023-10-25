@@ -90,6 +90,23 @@ function socket (io) {
                 }])
             }
         });
+
+        socket.on('leave-room', () => {
+            let disconnectedUser = allUsers.filter((user) => user.id === socket.id );
+            let userRoomName = disconnectedUser[0]?.roomName;
+            allUsers = allUsers.filter((user) => user.id!==disconnectedUser[0]?.id);
+            chatRoomUsers = allUsers.filter((user) => user.roomName === userRoomName);
+
+            let createdTime = Date.now();
+            if (disconnectedUser[0]?.userName) {
+                socket.to(userRoomName).emit('chatroom-users', chatRoomUsers);
+                socket.to(userRoomName).emit('receive-message', [{
+                    message: `${disconnectedUser[0]?.userName} has left the Room`,
+                    userName: 'chatBot',
+                    createdTime,
+                }])
+            }
+        })
     });
 }
 

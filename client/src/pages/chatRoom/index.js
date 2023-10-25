@@ -4,9 +4,11 @@ import Messages from '../../components/messages'
 import Sidebar from '../../components/sidebar'
 import axios from 'axios'
 import Hamburger from '../../components/hamburger'
+import { useNavigate } from 'react-router-dom'
 
 export default function ChatRoom({ socket }) {
     const [ api, contextHolder ] = notification.useNotification();
+    const navigate = useNavigate();
 
     const [ onlineUsers, setOnlineUsers ] = useState(null);
     const [ message, setMessage ] = useState('');
@@ -37,6 +39,19 @@ export default function ChatRoom({ socket }) {
         });
       }
     }
+    
+    const handleLeaveRoom = () => {
+      socket.emit('leave-room', (err) => {
+        if (err) {
+          api.error({
+            message: 'Please try again!'
+          })
+        }
+        else {
+          navigate('/')
+        }
+      });
+    }
 
     useEffect(() => {
         socket.on('chatroom-users', (users) => {
@@ -56,7 +71,7 @@ export default function ChatRoom({ socket }) {
       { contextHolder }
       <Hamburger onClick={() => setOpenDrawer(true)} />
 
-      <Sidebar onlineUsers={onlineUsers} openDrawer={openDrawer} onClose={() => setOpenDrawer(false)} />
+      <Sidebar onlineUsers={onlineUsers} openDrawer={openDrawer} onClose={() => setOpenDrawer(false)} onLeave={handleLeaveRoom} />
 
       <Row className='w-100 justify-content-center chat-section' style={{paddingLeft: '360px'}}>
         <Col className='py-3' style={{ width: '100%', maxWidth: '600px' }}>

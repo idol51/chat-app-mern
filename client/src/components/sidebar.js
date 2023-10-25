@@ -2,7 +2,7 @@ import { Button, Drawer, Row } from 'antd'
 import Title from 'antd/es/typography/Title'
 import React from 'react'
 
-export default function Sidebar({ onlineUsers, openDrawer, onClose }) {
+export default function Sidebar({ onlineUsers, openDrawer, onClose, onLeave }) {
     console.log(onlineUsers);
   return (
     <>
@@ -15,7 +15,7 @@ export default function Sidebar({ onlineUsers, openDrawer, onClose }) {
               { onlineUsers && onlineUsers.map((val) => <li>{val.userName}</li>)}
             </ul>
         </Row>
-        <Button size='large'>Leave Room</Button>
+        <Button size='large' onClick={onLeave}>Leave Room</Button>
       </Row>
     </Drawer>
 
