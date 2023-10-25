@@ -6,7 +6,7 @@ import io from 'socket.io-client'
 import { useState } from 'react';
 import ChatRoom from './pages/chatRoom';
 
-const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`)
+const socket = io.connect('https://chat-app-server-ffbm.onrender.com/')
 
 function App() {
   const [ userName, setUserName ] = useState(null);
