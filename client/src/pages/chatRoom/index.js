@@ -41,8 +41,8 @@ export default function ChatRoom({ socket }) {
     }
     
     const handleLeaveRoom = () => {
-      socket.emit('leave-room', (err) => {
-        if (err) {
+      socket.emit('leave-room', (res) => {
+        if (res.status !== 'ok') {
           api.error({
             message: 'Please try again!'
           })

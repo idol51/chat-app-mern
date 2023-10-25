@@ -27,7 +27,7 @@ export default function Sidebar({ onlineUsers, openDrawer, onClose, onLeave }) {
             { onlineUsers && onlineUsers.map((val) => <li>{val.userName}</li>)}
             </ul>
         </Row>
-        <Button size='large'>Leave Room</Button>
+        <Button size='large' onClick={onLeave}>Leave Room</Button>
     </Row>
     </>
   )
