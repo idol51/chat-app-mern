@@ -14,13 +14,15 @@ function socket (io) {
 
             let createdTime = Date.now();
 
-            Messages.find({ roomName: roomName }).limit(10)
+            Messages.find({ roomName: roomName }).sort({createdTime: -1}).limit(10)
                 .then((data) => {
                     data.map((val) => ({
                         message: val.message,
                         userName: val.userName,
                         createdTime: val.createdTime
                     }));
+
+                    data.reverse();
 
                     data.push({
                         message: `Welcome ${userName}`,
