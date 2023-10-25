@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Col, Form, Input, Row } from 'antd'
 import Title from 'antd/es/typography/Title'
 import { Helmet } from 'react-helmet-async'
@@ -17,6 +17,10 @@ export default function Home({ socket }) {
 
         navigate('/chat');
     }
+
+    useEffect(() => {
+      socket.on('leave-room');
+    }, [])
 
   return (
     <>
