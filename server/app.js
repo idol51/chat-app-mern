@@ -24,7 +24,7 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
     cors: {
-        origin: `http://192.168.1.177:${clientPort}`,
+        origin: `${process.env.CLIENT_URL}`,
         methods: ['GET', 'POST'],
     }
 })
